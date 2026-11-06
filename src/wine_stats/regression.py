@@ -32,3 +32,20 @@ def regression_metrics(y, prediction):
     return {'MAE': float(np.abs(residual).mean()),
             'RMSE': float(np.sqrt((residual ** 2).mean())),
             'R2': float(1 - (residual ** 2).sum() / total) if total > 0 else float('nan')}
+
+
+def predict_knn(x_train, y_train, x_query, k):
+    """Uniform kNN; include every neighbor tied at the kth distance."""
+    x, y, query = vector(x_train), vector(y_train), vector(x_query)
+    if x.shape != y.shape:
+        raise ValueError('Training arrays must have the same length')
+    if isinstance(k, bool) or not isinstance(k, (int, np.integer)) or not 1 <= k <= len(x):
+        raise ValueError('k must be an integer between 1 and training size')
+    predictions = []
+    for value in query:
+        distances = np.abs(x - value)
+        radius = np.partition(distances, k - 1)[k - 1]
+        # Tolerance covers floating-point roundoff, not measurement rounding.
+        mask = (distances <= radius) | np.isclose(distances, radius, rtol=1e-12, atol=1e-12)
+        predictions.append(y[mask].mean())
+    return np.array(predictions)
