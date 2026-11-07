@@ -45,3 +45,30 @@ def generate_quality(x_train, y_train, alcohol, size, k=720, seed=None):
     scores, probabilities = quality_distribution(x_train, y_train, alcohol, k)
     rng = np.random.default_rng(seed)
     return inverse_cdf(scores, probabilities, rng.random(size))
+
+
+def rejection_sample(scores, probabilities, size, seed=None):
+    """Return (scores, proposal_count) using a uniform discrete proposal.
+
+    Batches never exceed the number of still-needed outputs, so every accepted
+    proposal is retained and proposal_count includes no discarded batch tail.
+    """
+    # Reuse the same distribution validation as the inverse-CDF method.
+    inverse_cdf(scores, probabilities, [])
+    scores = np.asarray(scores, dtype=int)
+    p = np.asarray(probabilities, dtype=float)
+    p = p / p.sum()
+    if isinstance(size, bool) or not isinstance(size, (int, np.integer)) or size < 0:
+        raise ValueError('size must be a nonnegative integer')
+    rng = np.random.default_rng(seed)
+    output = np.empty(size, dtype=int)
+    filled = attempts = 0
+    threshold = p / p.max()
+    while filled < size:
+        batch = min(size - filled, 65536)
+        candidates = rng.integers(len(scores), size=batch)
+        accepted = candidates[rng.random(batch) < threshold[candidates]]
+        output[filled:filled + len(accepted)] = scores[accepted]
+        filled += len(accepted)
+        attempts += batch
+    return output, attempts
