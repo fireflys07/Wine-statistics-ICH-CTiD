@@ -1,7 +1,7 @@
 # Данные
 
 Источник: [UCI Wine Quality](https://archive.ics.uci.edu/dataset/186/wine+quality), DOI: 10.24432/C56S3T.
-[Исходный архив](https://archive.ics.uci.edu/static/public/186/wine+quality.zip). Получен 2026-11-13.
+[Исходный архив](https://archive.ics.uci.edu/static/public/186/wine+quality.zip).
 
 Из корня проекта:
 
