@@ -1,33 +1,47 @@
 # Wine statistics Lab01
 
-Исследование Wine Quality. стартовая структура.
-
-## Навигация
-- [План и роли](docs/PLAN.md)
-- [Правила совместной работы](CONTRIBUTING.md)
-- [Методические ограничения](docs/METHODOLOGY.md)
-- [Источники](references/README.md)
-- [Данные и происхождение](data/README.md)
-- [Итоговый ноутбук](notebooks/Lab01.ipynb)
-- Sprint 1: [quality](notebooks/sprint1/01_quality.ipynb), [alcohol](notebooks/sprint1/02_alcohol.ipynb), [volatile_acidity](notebooks/sprint1/03_volatile_acidity.ipynb)
-- Sprint 2: [генератор](notebooks/sprint2/01_generator.ipynb)
-- Site: [Интерактивная лаборатория](https://yamalaha.github.io/Statistics_Site.github.io/)
-- [Дополнительная математика](notebooks/extensions/01_geometry_models.ipynb)
+Анализ quality, alcohol и volatile_acidity в UCI Wine Quality. Два спринта собраны в [итоговом ноутбуке](notebooks/Lab01.ipynb).
 
 ## Запуск
-Python 3.11+; команды из корня репозитория:
+
+Python 3.11+. Команды из корня репозитория:
+
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -e '.[dev]'
-jupyter lab
+python scripts/download_data.py
+jupyter lab notebooks/Lab01.ipynb
 ```
-В Windows активация: `.venv\Scripts\activate`.
-Сначала прочитайте `data/README.md` и положите исходные CSV в `data/raw/`.
-Ноутбуки пока содержат исполняемую загрузку и задания, но не готовую аналитику.
 
-## Организация
-`src/wine_stats/` — общий код; `tests/` — проверки; `reports/figures/` — рисунки;
-`reports/tables/` — итоговые метрики; `references/` — журнал литературы.
-Каждый участник редактирует свой ноутбук. я потом соберу 
-Сроки задаются относительно начала: два спринта по две недели.
+В Windows: `.venv\Scripts\activate`. В Jupyter выберите Restart Kernel and Run All Cells.
+Скрипт загрузки проверяет SHA-256 двух исходных CSV. Для анализа после загрузки интернет не нужен.
+
+## Воспроизведение сборки
+
+```bash
+python scripts/build_notebook.py
+python scripts/run_notebooks.py
+python -m pytest -q
+python scripts/export_site_data.py
+python scripts/export_html.py
+python -m http.server 8000
+```
+
+Сайт: http://localhost:8000/WebSite/. Отчёт для чтения: http://localhost:8000/reports/Lab01.html.
+В HTML скрыт длинный код, в ноутбуке его можно раскрыть. Формулы в HTML используют MathJax из CDN.
+`build_notebook.py` собирает исходные ячейки и сбрасывает результаты итогового ноутбука. После сборки нужен полный запуск.
+
+## Материалы
+
+- [Первый спринт](notebooks/sprint1/): три величины, выборки, гипотезы и дополнительные модели.
+- [Второй спринт](notebooks/sprint2/): разбиение, регрессия, kNN, два генератора и проверки.
+- [Что объединено и исправлено](docs/INTEGRATION.md).
+- [Данные](data/README.md), [источники](references/README.md), [ограничения](docs/METHODOLOGY.md).
+- [Исходный план](docs/PLAN.md), [правила работы](CONTRIBUTING.md).
+
+При отдельном запуске второго спринта порядок такой: `00_data_split`, `01_alcohol_quality_models`,
+`02_knn`, `03_final_test`, `01_generator`, `04_generator_comparison`, `05_generator_convergence`, `06_rejection_generator`.
+
+Сайт дополняет исследование. Точные вероятности генератора, показатели и p-value обновляются через
+`scripts/export_site_data.py`; файл `WebSite/research-data.js` вручную не редактируют.

@@ -1285,7 +1285,7 @@ a {
 
 } /* close @media (max-width: 760px) */
 
-    
+
 /* ==========================================
    INTERACTIVE LABORATORY
 ========================================== */
@@ -1322,6 +1322,7 @@ a {
 }
 
 .control-field {
+    grid-template-columns: minmax(0, 1fr);
     min-width: 0;
     display: grid;
     gap: 10px;
