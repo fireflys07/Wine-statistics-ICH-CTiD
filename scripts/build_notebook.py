@@ -185,9 +185,7 @@ hypotheses.to_csv(ROOT / 'reports/tables/sprint1_hypotheses.csv', index=False)''
 | | [Автотесты](../tests/) | | Проверки реализации генераторов и моделей |
 | | [Литература](../references/README.md) | | UCI, первичная статья, Devroye и документация методов |
 
-Сайт в `WebSite/` дополняет ноутбук. Marimo, отдельный датасет КТвД и обзор восьми алгоритмов
-в эту сборку не входят. Математические разделы генератора сохранены из авторской ветки;
-перед сдачей участникам нужно проверить формулы и ссылки самостоятельно.''')
+Сайт в `WebSite/` дополняет ноутбук.''')
     for i, cell in enumerate(CELLS):
         cell.id = f'lab01-{i:03d}'
         if cell.cell_type == 'code' and len(cell.source.splitlines()) > 15:
