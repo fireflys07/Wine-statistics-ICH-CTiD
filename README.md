@@ -11,6 +11,7 @@
 - [Итоговый ноутбук](notebooks/Lab01.ipynb)
 - Sprint 1: [quality](notebooks/sprint1/01_quality.ipynb), [alcohol](notebooks/sprint1/02_alcohol.ipynb), [volatile_acidity](notebooks/sprint1/03_volatile_acidity.ipynb)
 - Sprint 2: [генератор](notebooks/sprint2/01_generator.ipynb)
+- Site: [Интерактивная лаборатория](https://yamalaha.github.io/Statistics_Site.github.io/)
 - [Дополнительная математика](notebooks/extensions/01_geometry_models.ipynb)
 
 ## Запуск

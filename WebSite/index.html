@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Интерактивная лаборатория прикладной статистики">
+    <title>Statistical Research Laboratory</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- Боковая панель -->
+        <aside class="sidebar">
+
+            <div class="sidebar-brand">
+                <div class="brand-mark">S</div>
+
+                <div class="brand-info">
+                    <span class="brand-title">STAT LAB</span>
+                    <span class="brand-subtitle">RESEARCH SYSTEM</span>
+                </div>
+            </div>
+
+            <div class="sidebar-divider"></div>
+
+            <div class="sidebar-section">
+                <span class="sidebar-caption">LABORATORY</span>
+                <select id="labSelect" aria-label="Выбор лабораторной работы">
+                </select>
+            </div>
+
+            <div class="sidebar-divider"></div>
+
+            <nav class="sidebar-navigation">
+                <div class="sidebar-heading">RESEARCH STRUCTURE</div>
+                <div id="sectionNav"></div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <span class="footer-indicator"></span>
+                <span>RESEARCH ENVIRONMENT</span>
+            </div>
+
+        </aside>
+
+
+        <!-- Основная область -->
+        <main class="main">
+
+            <header class="topbar">
+
+                <div class="topbar-left">
+                    <div id="breadcrumb"></div>
+                </div>
+
+                <div class="topbar-right">
+                    <div id="labStatus"></div>
+                </div>
+
+            </header>
+
+
+            <!-- Динамическое содержимое -->
+            <div id="pageContent" class="page-content"></div>
+
+
+            <footer class="main-footer">
+                <span>STATISTICAL RESEARCH LABORATORY</span>
+                <span>ACADEMIC PROJECT</span>
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <!-- Данные лабораторных -->
+    <script src="data.js"></script>
+
+    <!-- Логика интерфейса -->
+    <script src="app.js"></script>
+
+</body>
+</html>
