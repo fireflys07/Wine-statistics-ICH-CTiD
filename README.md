@@ -1,6 +1,14 @@
 # Wine statistics Lab01
 
-Анализ quality, alcohol и volatile_acidity в UCI Wine Quality. Два спринта собраны в [итоговом ноутбуке](notebooks/Lab01.ipynb).
+Анализ quality, alcohol и volatile_acidity в UCI Wine Quality.
+
+## Работа для сдачи
+
+**[Открыть итоговый notebook: Sprint 1 + Sprint 2](notebooks/Lab01_submission.ipynb)**
+
+Пояснения, формулы, таблицы и графики без кода. Результаты уже сохранены — запускать ячейки для чтения не нужно.
+
+[Исполняемый notebook с кодом](notebooks/Lab01.ipynb) · [Проверка готовности](docs/READINESS.md)
 
 ## Запуск
 
@@ -25,11 +33,13 @@ python scripts/run_notebooks.py
 python -m pytest -q
 python scripts/export_site_data.py
 python scripts/export_html.py
+python scripts/export_submission.py
 python -m http.server 8000
 ```
 
 Сайт: http://localhost:8000/WebSite/. Отчёт для чтения: http://localhost:8000/reports/Lab01.html.
-В HTML скрыт длинный код, в ноутбуке его можно раскрыть. Формулы в HTML используют MathJax из CDN.
+В HTML скрыт весь код. В исполняемом ноутбуке код свёрнут в JupyterLab.
+Версия для сдачи содержит только Markdown и сохранённые результаты, поэтому код отсутствует и при просмотре на GitHub. Формулы в HTML используют MathJax из CDN.
 `build_notebook.py` собирает исходные ячейки и сбрасывает результаты итогового ноутбука. После сборки нужен полный запуск.
 
 ## Материалы

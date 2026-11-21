@@ -26,6 +26,8 @@ def section(path, anchor, title):
             continue
         if cell.cell_type == 'markdown':
             text = re.split(r'### cat_mark_table', text)[0]
+            text = re.sub(r'<h1>.*?</h1>', '', text, flags=re.S)
+            text = re.sub(r'<h2>(.*?)</h2>', r'<h3>\1</h3>', text, flags=re.S)
             text = re.sub(r'^# .*$\n?', '', text, flags=re.M)
             text = re.sub(r'^## (?:Random Variable.*|random 01.*)$\n?', '', text, flags=re.M)
             text = re.sub(r'^## ', '### ', text, flags=re.M)
@@ -38,8 +40,8 @@ def section(path, anchor, title):
         else:
             cell.outputs = []
             cell.execution_count = None
-            cell.metadata['jupyter'] = {'source_hidden': len(text.splitlines()) > 15}
-            cell.metadata['tags'] = ['hide-input'] if len(text.splitlines()) > 15 else []
+            cell.metadata['jupyter'] = {'source_hidden': True}
+            cell.metadata['tags'] = ['hide-input']
         if not text.strip():
             continue
         cell.source = text.strip()
@@ -53,7 +55,7 @@ def build():
 
 Исследуем quality, alcohol и volatile_acidity в UCI Wine Quality.
 Исходные разделы участников собраны ниже с едиными путями к данным и исправлениями расчётов.
-Код длинных ячеек свёрнут в JupyterLab; его можно раскрыть.
+Весь код свёрнут в JupyterLab; его можно раскрыть.
 
 1. [Quality](#rv01)
 2. [Alcohol](#rv02)
@@ -178,7 +180,7 @@ hypotheses.to_csv(ROOT / 'reports/tables/sprint1_hypotheses.csv', index=False)''
 
 | cat_id | notebook_link | coeff | comment |
 |---|---|---|---|
-| | [Генератор](#generator) | | Метод обратной функции и математическое обоснование автора |
+| | [Генератор](#generator) | | Метод обратной функции и математическое обоснование |
 | | [Реальные данные](#comparison) | | Среднее, дисперсия, квантили, частоты и ограничение модели |
 | | [Сходимость](#convergence) | | Повторные оценки среднего и дисперсии |
 | | [Второй метод](#rejection) | | Отбор с отклонением, частоты и сравнение времени |
@@ -188,7 +190,7 @@ hypotheses.to_csv(ROOT / 'reports/tables/sprint1_hypotheses.csv', index=False)''
 Сайт в `WebSite/` дополняет ноутбук.''')
     for i, cell in enumerate(CELLS):
         cell.id = f'lab01-{i:03d}'
-        if cell.cell_type == 'code' and len(cell.source.splitlines()) > 15:
+        if cell.cell_type == 'code':
             cell.metadata['jupyter'] = {'source_hidden': True}
             cell.metadata['tags'] = ['hide-input']
     report = nbf.v4.new_notebook(cells=CELLS, metadata={

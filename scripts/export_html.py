@@ -1,4 +1,4 @@
-"""Export the executed notebook for reading, with long code cells hidden."""
+"""Export the executed notebook for reading, with all code inputs hidden."""
 from pathlib import Path
 import re
 import nbformat
@@ -12,6 +12,9 @@ for cell in notebook.cells:
         cell.source = re.sub(r"\]\((sprint[12]/[^)]+)\)",
                              r"](../notebooks/\1)", cell.source)
 config = Config()
+config.HTMLExporter.exclude_input = True
+config.HTMLExporter.exclude_input_prompt = True
+config.HTMLExporter.exclude_output_prompt = True
 config.TagRemovePreprocessor.enabled = True
 config.TagRemovePreprocessor.remove_input_tags = {"hide-input"}
 body, _ = HTMLExporter(config=config).from_notebook_node(notebook)
